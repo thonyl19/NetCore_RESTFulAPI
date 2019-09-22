@@ -20,6 +20,12 @@ namespace NetCore_RESTFulAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            // using(var client = new DBSContext())
+            // {
+            //     //呼叫 dbContext.Database.EnsureCreated()，
+            //     //  當啟動 Website 時就會建立資料庫
+            //     client.Database.EnsureCreated();
+            // }
         }
 
         public IConfiguration Configuration { get; }
@@ -31,8 +37,17 @@ namespace NetCore_RESTFulAPI
             在 ASP.NET Core 中，資料庫內容等服務必須向相依性插入 (DI) 容器註冊。 
                 此容器會將服務提供給控制器。
             */
-            services.AddDbContext<TodoContext>(opt =>
-                opt.UseInMemoryDatabase("TodoList"));
+            // services.AddDbContext<TodoContext>(opt =>
+            //     opt.UseInMemoryDatabase("TodoList"));
+
+            /*
+            
+             */
+            services
+                //.AddEntityFrameworkSqlite()
+                .AddDbContext<DBSContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("Sqlite"))
+                );
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -60,6 +75,8 @@ namespace NetCore_RESTFulAPI
                     template: "api/{action=Index}/{id?}"
                 );
             });
+
+ 
         }
     }
 }
