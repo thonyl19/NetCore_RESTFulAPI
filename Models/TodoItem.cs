@@ -1,21 +1,27 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace NetCore_RESTFulAPI.Models
 {
     public class TodoItem
     {
-        public long Id { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long SN { get; set; }
+        [Required]
         public string Name { get; set; }
         public bool IsComplete { get; set; }
     }
+ 
 
-    public class TodoContext : DbContext
+    public class DBSContext : DbContext
     {
-        public TodoContext(DbContextOptions<TodoContext> options)
+        public DBSContext(DbContextOptions<DBSContext> options)
             : base(options)
         {
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
+        
     }
 }
