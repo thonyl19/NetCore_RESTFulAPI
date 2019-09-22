@@ -31,7 +31,7 @@ namespace NetCore_RESTFulAPI
             在 ASP.NET Core 中，資料庫內容等服務必須向相依性插入 (DI) 容器註冊。 
                 此容器會將服務提供給控制器。
             */
-            services.AddDbContext<TodoContext>(opt =>
+            services.AddDbContext<DBSContext>(opt =>
                 opt.UseInMemoryDatabase("TodoList"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
