@@ -11,9 +11,9 @@ namespace NetCore_RESTFulAPI.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        private readonly TodoContext _context;
+        private readonly DBSContext _context;
 
-        public TodoController(TodoContext context)
+        public TodoController(DBSContext context)
         {
             _context = context;
 
@@ -36,7 +36,7 @@ namespace NetCore_RESTFulAPI.Controllers
         {
             _context.TodoItems.Add(item);
             await _context.SaveChangesAsync();;
-            return CreatedAtAction(nameof(GetTodoItem), new { id = item.Id }, item);
+            return CreatedAtAction(nameof(GetTodoItem), new { id = item.SN }, item);
         }
 
         
@@ -50,7 +50,7 @@ namespace NetCore_RESTFulAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTodoItem(long id, TodoItem item)
         {
-            if (id != item.Id)
+            if (id != item.SN)
             {
                 return BadRequest();
             }
