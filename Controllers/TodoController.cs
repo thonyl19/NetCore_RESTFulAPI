@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetCore_RESTFulAPI.Models;
@@ -25,7 +26,7 @@ namespace NetCore_RESTFulAPI.Controllers
             //     _context.SaveChanges();
             // }
         }
-        [HttpGet]
+        [Route("all"),HttpGet]
         public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
         {
             return await _context.TodoItems.ToListAsync();
@@ -87,6 +88,8 @@ namespace NetCore_RESTFulAPI.Controllers
 
         // GET: api/Todo/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
         {
             var todoItem = await _context.TodoItems.FindAsync(id);
@@ -96,7 +99,7 @@ namespace NetCore_RESTFulAPI.Controllers
                 return NotFound();
             }
 
-            return todoItem;
+            return Ok(todoItem);
         }
     }
 }
