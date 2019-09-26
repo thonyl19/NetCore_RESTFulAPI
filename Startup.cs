@@ -44,7 +44,6 @@ namespace NetCore_RESTFulAPI
             
              */
             services
-                //.AddEntityFrameworkSqlite()
                 .AddDbContext<DBSContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("Sqlite"))
                 );
